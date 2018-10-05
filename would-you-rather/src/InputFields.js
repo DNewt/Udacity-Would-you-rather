@@ -5,14 +5,15 @@ import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 
 
-class Login extends Component {
+class InputFields extends Component {
   render() {
     return (
       <div>
-        <Button>Login</Button>
+        <div><Input placeholder="Name">Enter Name here</Input></div> 
+        <div><Input placeholder="Login">Enter Password here</Input></div>
       </div>
     );
   }
 }
 
-export default Login;
+export default InputFields;
