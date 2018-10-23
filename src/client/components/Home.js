@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {getQuestions} from '../actions/questions'
+import {getUsers} from '../actions/users'
 import {connect} from 'react-redux'
 import Question from './Question';
 
@@ -21,6 +22,7 @@ class Home extends Component {
     }
 
     renderQuestions(answered) {
+
         var questionsFiltered = this.props.questions.filter(question => {
             if (answered === 0) {
                 return question.optionOne.votes.length === 0 && question.optionTwo.votes.length === 0            
@@ -30,7 +32,7 @@ class Home extends Component {
         })
         return (
             questionsFiltered.map((question, index) => {
-                return <Question question={question} />
+                return <Question question={question} users={this.props.users}/>
             })
         )
     }
@@ -52,12 +54,14 @@ class Home extends Component {
 
 const mapStateToProps = state => {
     return {
-        questions: state.questions.questions
+        questions: state.questions.questions,
+        users: state.users.users
     }
 }
 
 const mapDispatchToProps = {
-    getQuestions
+    getQuestions,
+    getUsers
 }
 
 export default connect(mapStateToProps, mapDispatchToProps) (Home);
