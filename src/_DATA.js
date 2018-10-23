@@ -1,5 +1,5 @@
-let users = {
-    sarahedo: {
+let users = [
+    {
       id: 'sarahedo',
       name: 'Sarah Edo',
       avatarURL: 'https://www.catster.com/wp-content/uploads/2017/08/A-fluffy-cat-looking-funny-surprised-or-concerned.jpg',
@@ -11,7 +11,7 @@ let users = {
       },
       questions: ['8xf0y6ziyjabvozdd253nd', 'am8ehyc8byjqgar0jgpub9']
     },
-    tylermcginnis: {
+    {
       id: 'tylermcginnis',
       name: 'Tyler McGinnis',
       avatarURL: 'https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop.jpg',
@@ -21,7 +21,7 @@ let users = {
       },
       questions: ['loxhs1bqm25b708cmbf3g', 'vthrdm985a262al8qx3do'],
     },
-    johndoe: {
+    {
       id: 'johndoe',
       name: 'John Doe',
       avatarURL: 'https://cdn.britannica.com/67/197567-131-1645A26E.jpg',
@@ -32,7 +32,7 @@ let users = {
       },
       questions: ['6ni6ok3ym7mf1p33lnez', 'xj352vofupe1dqz9emx13r'],
     }
-  }
+  ]
   
   let questions = {
     "8xf0y6ziyjabvozdd253nd": {
@@ -121,7 +121,7 @@ let users = {
   
   export function _getUsers () {
     return new Promise((res, rej) => {
-      setTimeout(() => res({...users}), 1000)
+      setTimeout(() => res(users), 1000)
     })
   }
   
