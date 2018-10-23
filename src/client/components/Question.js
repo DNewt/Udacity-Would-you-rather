@@ -35,9 +35,7 @@ class Question extends Component {
     }
     
     render() {
-        
-        let hi = "https://cdn.britannica.com/67/197567-131-1645A26E.jpg"
-        
+              
         return (
             
             <div>
@@ -46,9 +44,9 @@ class Question extends Component {
                 })}
 
                 {this.props.question.author} asks:
-                <p>{this.props.question.optionOne.text}</p>
+                <button>{this.props.question.optionOne.text}</button>
                 or
-                <p>{this.props.question.optionTwo.text}</p>
+                <button>{this.props.question.optionTwo.text}</button>
             </div>
  
         )
