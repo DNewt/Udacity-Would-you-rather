@@ -4,6 +4,11 @@ import {connect} from 'react-redux'
 import { withStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import classNames from 'classnames';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
 const styles = {
     row: {
@@ -12,11 +17,28 @@ const styles = {
     },
     avatar: {
       margin: 10,
+      width: 90,
+      height: 90,
     },
     bigAvatar: {
-      width: 60,
-      height: 60,
+      width: 90,
+      height: 90,
     },
+    card: {
+        minWidth: 275,
+        margin: 100
+      },
+      bullet: {
+        display: 'inline-block',
+        margin: '0 2px',
+        transform: 'scale(0.8)',
+      },
+      title: {
+        fontSize: 14,
+      },
+      pos: {
+        marginBottom: 12,
+      },
   };
 
 
@@ -37,17 +59,28 @@ class Question extends Component {
     render() {
               
         return (
-            
-            <div>
-                {this.props.users.map((user) => {
-                    return (this.props.question.author == user.id  ? this.renderAvatar(user.avatarURL) : console.log("nope"))
-                })}
+            <div className="question">
+                <Card className={styles.card}>
+                    <CardContent>
+                        <Typography className={styles.title} color="textSecondary" gutterBottom>
+                        Would you rather?
+                        </Typography>
+                        <div>
+                            {this.props.users.map((user) => {
+                                return (this.props.question.author == user.id  ? this.renderAvatar(user.avatarURL) : console.log("nope"))
+                            })}
 
-                {this.props.question.author} asks:
-                <button>{this.props.question.optionOne.text}</button>
-                or
-                <button>{this.props.question.optionTwo.text}</button>
+                            {this.props.question.author} asks:
+                            <button>{this.props.question.optionOne.text}</button>
+                            or
+                            <button>{this.props.question.optionTwo.text}</button>
+                        </div> 
+                        
+                    </CardContent>
+                </Card>
             </div>
+            
+
  
         )
     }
