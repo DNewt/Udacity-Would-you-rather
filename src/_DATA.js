@@ -175,7 +175,7 @@ let users = [
     return new Promise((res, rej) => {
       setTimeout(() => {
         users = {
-          ...users,
+          users,
           [authedUser]: {
             ...users[authedUser],
             answers: {
@@ -186,7 +186,7 @@ let users = [
         }
   
         questions = {
-          ...questions,
+          questions,
           [qid]: {
             ...questions[qid],
             [answer]: {

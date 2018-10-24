@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {getQuestions} from '../actions/questions'
+import {_saveQuestionAnswer} from '../../_DATA'
 import {connect} from 'react-redux'
 import { withStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
@@ -49,8 +50,11 @@ const styles = {
 
 
 
-
 class Question extends Component {
+
+    handleClick(ans){
+        _saveQuestionAnswer(this.props.loggedInUser, this.props.question.id, ans)
+    }
 
     renderAvatar(ava){
         return (
@@ -80,11 +84,11 @@ class Question extends Component {
 
                             {this.props.question.author} asks:
                             <br/>
-                            <Button variant="contained" color="secondary" className={styles.button}>{this.props.question.optionOne.text}</Button>
+                            <Button variant="contained" color="secondary" className={styles.button} onClick={() => {this.handleClick(this.props.question.optionOne)}}>{this.props.question.optionOne.text}</Button>
                             <br/>
                             or
                             <br/>
-                            <Button variant="contained" color="primary" className={styles.button}>{this.props.question.optionTwo.text}</Button>
+                            <Button variant="contained" color="primary" className={styles.button} onClick={() => {this.handleClick(this.props.question.optionTwo)}}>{this.props.question.optionTwo.text}</Button>
                         </div> 
                         
                     </CardContent>

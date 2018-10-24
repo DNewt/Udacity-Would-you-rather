@@ -7,7 +7,7 @@ import Navbar from './client/components/Navbar'
 
 class App extends Component {
 
-  
+ 
   constructor(props) {
     super(props)
     this.state = {
@@ -20,6 +20,9 @@ class App extends Component {
   }
 
   render() {
+
+    
+
     return (
       <div className="App">
         
