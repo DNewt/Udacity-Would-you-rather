@@ -26,7 +26,7 @@ class App extends Component {
         <Navbar user={this.state.user}/>
         <div className="Container">
           {this.state.user ? 
-            <Home/>
+            <Home loggedInUser = {this.state.user}/>
           : 
             <SignIn login={this.login.bind(this)}/>        
           }

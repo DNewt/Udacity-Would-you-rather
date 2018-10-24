@@ -25,9 +25,12 @@ class Home extends Component {
 
         var questionsFiltered = this.props.questions.filter(question => {
             if (answered === 0) {
-                return question.optionOne.votes.length === 0 && question.optionTwo.votes.length === 0            
+                console.log("----------------------")
+                console.log(question.optionOne.votes)
+                console.log(this.props.loggedInUser)
+                return !question.optionOne.votes.includes(this.props.loggedInUser.id) && !question.optionTwo.votes.includes(this.props.loggedInUser.id)            
             } else {
-                return question.optionOne.votes.length > 0 || question.optionTwo.votes.length > 0
+                return question.optionOne.votes.includes(this.props.loggedInUser.id) || question.optionTwo.votes.includes(this.props.loggedInUser.id)
             }
         })
         return (
