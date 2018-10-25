@@ -23,7 +23,8 @@ class Home extends Component {
 
     renderQuestions(answered) {
 
-        var questionsFiltered = this.props.questions.filter(question => {
+        var questionsFiltered = Object.keys(this.props.questions).filter(key => {
+            var question = this.props.questions[key]
             if (answered === 0) {
                 console.log("----------------------")
                 console.log(question.optionOne.votes)
@@ -33,9 +34,10 @@ class Home extends Component {
                 return question.optionOne.votes.includes(this.props.loggedInUser.id) || question.optionTwo.votes.includes(this.props.loggedInUser.id)
             }
         })
+        console.log(questionsFiltered)
         return (
             questionsFiltered.map((question, index) => {
-                return <Question question={question} users={this.props.users} loggedInUser={this.props.loggedInUser}/>
+                return <Question getQuestions={this.props.getQuestions.bind(this)} question={this.props.questions[question]} users={this.props.users} loggedInUser={this.props.loggedInUser}/>
             })
         )
     }
@@ -58,7 +60,8 @@ class Home extends Component {
 const mapStateToProps = state => {
     return {
         questions: state.questions.questions,
-        users: state.users.users
+        users: state.users.users,
+        loggedInUser: state.users.loggedInUser
     }
 }
 

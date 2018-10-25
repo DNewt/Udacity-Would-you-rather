@@ -4,10 +4,16 @@ import './App.css';
 import SignIn from './client/components/Login'
 import Home from './client/components/Home'
 import Navbar from './client/components/Navbar'
+import Leaderboard from './client/components/Leaderboard'
+import CreateQuestion from './client/components/CreateQuestion'
+import {connect} from 'react-redux'
+import {login} from './client/actions/users'
+
+import {Switch, Route, withRouter} from 'react-router-dom'
 
 class App extends Component {
 
- 
+
   constructor(props) {
     super(props)
     this.state = {
@@ -16,20 +22,25 @@ class App extends Component {
   }
 
   login(user) {
-    this.setState({user: user}, () => {console.log(this.state.user)})
+    this.props.login(user)
+    // this.setState({user: user}, () => {console.log(this.state.user)})
   }
 
   render() {
 
-    
-
     return (
       <div className="App">
         
-        <Navbar user={this.state.user}/>
+        <Navbar loggedInUser={this.props.loggedInUser}/>
         <div className="Container">
-          {this.state.user ? 
-            <Home loggedInUser = {this.state.user}/>
+      
+          {this.props.loggedInUser ? 
+            <Switch>
+              <Route exact path="/" component={Home}/>
+              <Route exact path="/leaderboard" component={Leaderboard}/>
+              <Route exact path="/create-question" component={CreateQuestion} />
+              <Route exact path="/question/:id" />
+            </Switch>
           : 
             <SignIn login={this.login.bind(this)}/>        
           }
@@ -39,4 +50,14 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    loggedInUser: state.users.loggedInUser
+  }
+}
+
+const mapDispatchToProps = {
+  login
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps) (App));

@@ -1,4 +1,4 @@
-import {_getQuestions} from '../../_DATA'
+import {_getQuestions, _saveQuestion} from '../../_DATA'
 
 export function getQuestions(user) {
     return dispatch => {
@@ -10,6 +10,14 @@ export function getQuestions(user) {
             })
         }).catch(err => {
             console.log(err)
+        })
+    }
+}
+
+export function createQuestion(question) {
+    return dispatch => {
+        _saveQuestion(question).then(results => {
+            console.log(results)
         })
     }
 }

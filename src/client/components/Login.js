@@ -39,13 +39,12 @@ class SignIn extends Component {
   }
   
   renderUsers () {
-    return (
-      this.props.users.map((user, index) => {
-        return (
-          <MenuItem value={user} >{user.name}</MenuItem>
-        )
-      })
-    )
+    return Object.keys(this.props.users).map((key, index) => {
+      var user = this.props.users[key]
+      return (
+        <MenuItem value={user} >{user.name}</MenuItem>
+      )
+    })
   }
 
   render() {
@@ -80,7 +79,6 @@ class SignIn extends Component {
         marginTop: theme.spacing.unit * 3,
       },
     });
-    
     return (
       <React.Fragment>
         <CssBaseline />

@@ -53,10 +53,18 @@ const styles = {
 class Question extends Component {
 
     handleClick(ans){
-        _saveQuestionAnswer(this.props.loggedInUser, this.props.question.id, ans)
+        let answer = {
+            authedUser: this.props.loggedInUser.id,
+            qid: this.props.question.id,
+            answer: ans
+        }
+        _saveQuestionAnswer(answer).then(() => {
+            this.props.getQuestions()
+        })
     }
 
     renderAvatar(ava){
+        console.log(ava)
         return (
             <div>
                 <Avatar
@@ -69,7 +77,6 @@ class Question extends Component {
     }
     
     render() {
-              
         return (
             <div className="question">
                 <Card className={styles.card}>
@@ -78,17 +85,17 @@ class Question extends Component {
                         Would you rather?
                         </Typography>
                         <div>
-                            {this.props.users.map((user) => {
-                                return (this.props.question.author == user.id  ? this.renderAvatar(user.avatarURL) : console.log("nope"))
+                            {Object.keys(this.props.users).map((key) => {
+                                return (this.props.question.author == this.props.users[key].id  ? this.renderAvatar(this.props.users[key].avatarURL) : console.log("nope"))
                             })}
 
                             {this.props.question.author} asks:
                             <br/>
-                            <Button variant="contained" color="secondary" className={styles.button} onClick={() => {this.handleClick(this.props.question.optionOne)}}>{this.props.question.optionOne.text}</Button>
+                            <Button variant="contained" color="secondary" className={styles.button} onClick={() => {this.handleClick('optionOne')}}>{this.props.question.optionOne.text}</Button>
                             <br/>
                             or
                             <br/>
-                            <Button variant="contained" color="primary" className={styles.button} onClick={() => {this.handleClick(this.props.question.optionTwo)}}>{this.props.question.optionTwo.text}</Button>
+                            <Button variant="contained" color="primary" className={styles.button} onClick={() => {this.handleClick('optionTwo')}}>{this.props.question.optionTwo.text}</Button>
                         </div> 
                         
                     </CardContent>
