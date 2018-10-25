@@ -1,7 +1,5 @@
 import React, {Component} from 'react'
-import {getQuestions} from '../actions/questions'
-import {_saveQuestionAnswer} from '../../_DATA'
-import {connect} from 'react-redux'
+
 import { withStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import classNames from 'classnames';
@@ -10,6 +8,109 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import {_saveQuestionAnswer} from '../../_DATA'
+import {Link} from 'react-router-dom'
+import {getQuestion} from '../actions/questions'
+import {connect} from 'react-redux'
+
+class Question extends Component {
+
+    componentDidMount() {
+        var id = window.location.pathname.split("/").pop()
+        this.props.getQuestion(id)
+    }
+
+    handleClick(ans){
+        let answer = {
+            authedUser: this.props.loggedInUser.id,
+            qid: this.props.question.id,
+            answer: ans
+        }
+        _saveQuestionAnswer(answer).then(() => {
+            this.props.getQuestion(this.props.question.id)
+        })
+    }
+
+    renderAvatar(ava){
+        return (
+            <div>
+                <Avatar
+                    alt="Adelle Charles"
+                    src={ava}
+                    className={classNames(styles.avatar, styles.bigAvatar)}
+                />
+            </div>
+        )
+    }
+
+    renderUnanswered () {
+        return (
+            <div>
+                {
+                    this.renderAvatar(this.props.users[this.props.question.author].avatarURL)
+                }
+
+                {this.props.question && this.props.question.author} asks:
+                <br/>
+                <Button variant="contained" color="secondary" className={styles.button} onClick={() => {this.handleClick('optionOne')}}>{this.props.question.optionOne.text}</Button>
+                <br/>
+                or
+                <br/>
+                <Button variant="contained" color="primary" className={styles.button} onClick={() => {this.handleClick('optionTwo')}}>{this.props.question.optionTwo.text}</Button>
+            </div>    
+        )
+    }
+
+    renderAnswered () {
+        return (
+            <div>
+                {
+                    this.renderAvatar(this.props.users[this.props.question.author].avatarURL)
+                }
+
+                {this.props.question &&
+                    <div>
+                        {this.props.question.author} asks:
+                        {this.props.question.optionOne.text} or {this.props.question.optionTwo.text}
+                    </div>
+                }
+            </div>  
+        )
+    }
+
+    checkAnswered() {
+        return Object.keys(this.props.loggedInUser.answers).indexOf(this.props.question.id) > -1
+    }
+
+    render () {
+        if (!this.props.question || !this.props.loggedInUser) {
+            return <div/>
+        } else {
+            var answered = this.checkAnswered()
+            return (
+                <div className="question">
+                <Card className={styles.card}>
+                    <CardContent>
+                        <Typography className={styles.title} color="textSecondary" gutterBottom>
+                        Would you rather?
+                        </Typography>
+                        {  answered ? this.renderUnanswered() : this.renderAnswered()
+                        }
+                    </CardContent>
+                </Card>
+            </div>
+            )
+        }
+    }
+}
+
+const mapStateToProps = state => {
+    return {
+        question: state.questions.question,
+        users: state.users.users,
+        loggedInUser: state.users.loggedInUser
+    }
+}
 
 const styles = {
     row: {
@@ -48,64 +149,8 @@ const styles = {
       },
   };
 
-
-
-class Question extends Component {
-
-    handleClick(ans){
-        let answer = {
-            authedUser: this.props.loggedInUser.id,
-            qid: this.props.question.id,
-            answer: ans
-        }
-        _saveQuestionAnswer(answer).then(() => {
-            this.props.getQuestions()
-        })
-    }
-
-    renderAvatar(ava){
-        console.log(ava)
-        return (
-            <div>
-                <Avatar
-                    alt="Adelle Charles"
-                    src={ava}
-                    className={classNames(styles.avatar, styles.bigAvatar)}
-                />
-            </div>
-        )
-    }
-    
-    render() {
-        return (
-            <div className="question">
-                <Card className={styles.card}>
-                    <CardContent>
-                        <Typography className={styles.title} color="textSecondary" gutterBottom>
-                        Would you rather?
-                        </Typography>
-                        <div>
-                            {Object.keys(this.props.users).map((key) => {
-                                return (this.props.question.author == this.props.users[key].id  ? this.renderAvatar(this.props.users[key].avatarURL) : console.log("nope"))
-                            })}
-
-                            {this.props.question.author} asks:
-                            <br/>
-                            <Button variant="contained" color="secondary" className={styles.button} onClick={() => {this.handleClick('optionOne')}}>{this.props.question.optionOne.text}</Button>
-                            <br/>
-                            or
-                            <br/>
-                            <Button variant="contained" color="primary" className={styles.button} onClick={() => {this.handleClick('optionTwo')}}>{this.props.question.optionTwo.text}</Button>
-                        </div> 
-                        
-                    </CardContent>
-                </Card>
-            </div>
-            
-
- 
-        )
-    }
+const mapDispatchToProps = {
+    getQuestion
 }
 
-export default (Question);
+export default connect(mapStateToProps, mapDispatchToProps) (Question);

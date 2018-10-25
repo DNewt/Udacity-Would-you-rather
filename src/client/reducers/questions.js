@@ -5,8 +5,9 @@ export default function reducer(
     }, action) {
         switch(action.type) {
             case 'GOT_QUESTIONS':
-                console.log(action.data)
                 return {...state, questions: action.data}
+            case 'GOT_QUESTION':
+                return {...state, question: action.data}
             default:
                 return state
         }

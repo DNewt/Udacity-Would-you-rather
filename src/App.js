@@ -6,6 +6,7 @@ import Home from './client/components/Home'
 import Navbar from './client/components/Navbar'
 import Leaderboard from './client/components/Leaderboard'
 import CreateQuestion from './client/components/CreateQuestion'
+import Question from './client/components/Question'
 import {connect} from 'react-redux'
 import {login} from './client/actions/users'
 
@@ -39,7 +40,7 @@ class App extends Component {
               <Route exact path="/" component={Home}/>
               <Route exact path="/leaderboard" component={Leaderboard}/>
               <Route exact path="/create-question" component={CreateQuestion} />
-              <Route exact path="/question/:id" />
+              <Route exact path="/questions/:id" component={Question} />
             </Switch>
           : 
             <SignIn login={this.login.bind(this)}/>        

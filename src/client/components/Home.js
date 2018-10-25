@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {getQuestions} from '../actions/questions'
 import {getUsers} from '../actions/users'
 import {connect} from 'react-redux'
-import Question from './Question';
+import QuestionCard from './QuestionCard';
 
 import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
@@ -37,7 +37,7 @@ class Home extends Component {
         console.log(questionsFiltered)
         return (
             questionsFiltered.map((question, index) => {
-                return <Question getQuestions={this.props.getQuestions.bind(this)} question={this.props.questions[question]} users={this.props.users} loggedInUser={this.props.loggedInUser}/>
+                return <QuestionCard getQuestions={this.props.getQuestions.bind(this)} question={this.props.questions[question]} loggedInUser={this.props.loggedInUser}/>
             })
         )
     }
