@@ -9,6 +9,15 @@ export function login(user) {
     }
 }
 
+export function logout() {
+    return dispatch => {
+        dispatch({
+            type: 'LOGGED_OUT'
+        })
+    }
+}
+
+
 export function getUsers() {
     return dispatch => {
         _getUsers().then(results => {

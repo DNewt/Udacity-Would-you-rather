@@ -21,6 +21,7 @@ class Question extends Component {
     }
 
     handleClick(ans){
+        
         let answer = {
             authedUser: this.props.loggedInUser.id,
             qid: this.props.question.id,
@@ -94,7 +95,7 @@ class Question extends Component {
                         <Typography className={styles.title} color="textSecondary" gutterBottom>
                         Would you rather?
                         </Typography>
-                        {  answered ? this.renderUnanswered() : this.renderAnswered()
+                        {  answered ? this.renderAnswered() : this.renderUnanswered()
                         }
                     </CardContent>
                 </Card>

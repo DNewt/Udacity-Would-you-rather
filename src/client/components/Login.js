@@ -84,9 +84,6 @@ class SignIn extends Component {
         <CssBaseline />
         <main className={styles.layout}>
           <Paper className={styles.paper}>
-            <Avatar className={styles.avatar}>
-              <LockIcon />
-            </Avatar>
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>

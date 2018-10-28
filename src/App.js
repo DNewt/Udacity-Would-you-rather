@@ -43,7 +43,8 @@ class App extends Component {
               <Route exact path="/questions/:id" component={Question} />
             </Switch>
           : 
-            <SignIn login={this.login.bind(this)}/>        
+            <SignIn login={this.login.bind(this)}/>  
+                  
           }
         </div>
       </div>

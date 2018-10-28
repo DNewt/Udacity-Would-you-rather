@@ -8,6 +8,8 @@ export default function reducer(
                 return {...state, users: action.data}
             case 'LOGGED_IN':
                 return {...state, loggedInUser: action.data}
+            case 'LOGGED_OUT':
+                return {...state, loggedInUser: null}    
             default:
                 return state
         }
