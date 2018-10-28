@@ -26,15 +26,11 @@ class Home extends Component {
         var questionsFiltered = Object.keys(this.props.questions).filter(key => {
             var question = this.props.questions[key]
             if (answered === 0) {
-                console.log("----------------------")
-                console.log(question.optionOne.votes)
-                console.log(this.props.loggedInUser)
                 return !question.optionOne.votes.includes(this.props.loggedInUser.id) && !question.optionTwo.votes.includes(this.props.loggedInUser.id)            
             } else {
                 return question.optionOne.votes.includes(this.props.loggedInUser.id) || question.optionTwo.votes.includes(this.props.loggedInUser.id)
             }
         })
-        console.log(questionsFiltered)
         return (
             questionsFiltered.map((question, index) => {
                 return <QuestionCard getQuestions={this.props.getQuestions.bind(this)} question={this.props.questions[question]} loggedInUser={this.props.loggedInUser}/>
@@ -43,7 +39,6 @@ class Home extends Component {
     }
 
     render() {
-        console.log(this.state.answered)
         return (
             <div>
                 <Tabs value={this.state.answered} onChange={(e, v) => {this.setState({answered: v})}}>

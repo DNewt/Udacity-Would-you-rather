@@ -51,7 +51,6 @@ class QuestionCard extends Component {
 
 
     renderAvatar(ava){
-        console.log(ava)
         return (
             <div>
                 <Avatar

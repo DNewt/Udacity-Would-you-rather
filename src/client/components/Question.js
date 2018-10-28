@@ -12,6 +12,7 @@ import {_saveQuestionAnswer} from '../../_DATA'
 import {Link} from 'react-router-dom'
 import {getQuestion} from '../actions/questions'
 import {connect} from 'react-redux'
+import {Switch, Route, withRouter} from 'react-router-dom'
 
 class Question extends Component {
 
@@ -29,6 +30,7 @@ class Question extends Component {
         }
         _saveQuestionAnswer(answer).then(() => {
             this.props.getQuestion(this.props.question.id)
+            this.props.history.push('/')
         })
     }
 
@@ -154,4 +156,4 @@ const mapDispatchToProps = {
     getQuestion
 }
 
-export default connect(mapStateToProps, mapDispatchToProps) (Question);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps) (Question));
