@@ -22,6 +22,7 @@ class CreateQuestion extends Component {
             author: this.props.loggedInUser.id
         }
         this.props.createQuestion(question)
+        this.props.history.push('/')
     }
 
     render () {
