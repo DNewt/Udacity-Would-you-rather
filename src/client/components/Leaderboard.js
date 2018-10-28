@@ -55,31 +55,33 @@ const styles = {
 class Leaderboard extends Component {
 
     renderUser (user) {
+        
         var userAnswers = Object.keys(user.answers)
         let score = user.questions.length + userAnswers.length
         return(
+            <div className="question">
+                <Card className={styles.card}>
+                    <CardContent>
+                        <Typography className={styles.title} color="textSecondary" gutterBottom>
+                        <div>
+                            <Avatar
+                                alt="Adelle Charles"
+                                src={user.avatarURL}
+                                className={classNames(styles.avatar, styles.bigAvatar)}
+                            />
+                        </div>
+                        <div>
+                            Name: {user.name}
+                        </div>
+                        <div>
+                            Score: {score}
+                        </div>
+                        </Typography>
 
-            <Card className={styles.card}>
-                <CardContent>
-                    <Typography className={styles.title} color="textSecondary" gutterBottom>
-                    <div>
-                        <Avatar
-                            alt="Adelle Charles"
-                            src={user.avatarURL}
-                            className={classNames(styles.avatar, styles.bigAvatar)}
-                        />
-                    </div>
-                    <div>
-                        Name: {user.name}
-                    </div>
-                    <div>
-                        Score: {score}
-                    </div>
-                    </Typography>
 
-
-                </CardContent>
-            </Card>
+                    </CardContent>
+                </Card>
+            </div>
         )
     }
 
@@ -88,6 +90,7 @@ class Leaderboard extends Component {
     }
 
     render() {
+        this.props.getUsers();
         var users = []
         for (var key in this.props.users) {
             users.push(this.props.users[key])
