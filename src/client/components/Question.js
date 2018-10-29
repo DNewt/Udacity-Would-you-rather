@@ -1,22 +1,18 @@
 import React, {Component} from 'react'
 
-import { withStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import classNames from 'classnames';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import {_saveQuestionAnswer} from '../../_DATA'
-import {Link} from 'react-router-dom'
 import {getQuestion} from '../actions/questions'
 import {connect} from 'react-redux'
-import {Switch, Route, withRouter} from 'react-router-dom'
+import {withRouter} from 'react-router-dom'
 
 class Question extends Component {
 
-    componentDidMount() {
+    componentWillMount() {
         var id = window.location.pathname.split("/").pop()
         this.props.getQuestion(id)
     }
@@ -30,7 +26,6 @@ class Question extends Component {
         }
         _saveQuestionAnswer(answer).then(() => {
             this.props.getQuestion(this.props.question.id)
-            this.props.history.push('/')
         })
     }
 
@@ -55,16 +50,19 @@ class Question extends Component {
 
                 {this.props.question && this.props.question.author} asks:
                 <br/>
-                <Button variant="contained" color="secondary" className={styles.button} onClick={() => {this.handleClick('optionOne')}}>{this.props.question.optionOne.text}</Button>
+                <Button variant="contained" color="secondary" onClick={() => {this.handleClick('optionOne')}}>{this.props.question.optionOne.text}</Button>
                 <br/>
                 or
                 <br/>
-                <Button variant="contained" color="primary" className={styles.button} onClick={() => {this.handleClick('optionTwo')}}>{this.props.question.optionTwo.text}</Button>
+                <Button variant="contained" color="primary" onClick={() => {this.handleClick('optionTwo')}}>{this.props.question.optionTwo.text}</Button>
             </div>    
         )
     }
 
     renderAnswered () {
+        var totalVotes = this.props.question.optionOne.votes.concat(this.props.question.optionTwo.votes).length
+        var optionOneVotes = this.props.question.optionOne.votes.length
+        var optionTwoVotes = this.props.question.optionTwo.votes.length
         return (
             <div>
                 {
@@ -73,8 +71,19 @@ class Question extends Component {
 
                 {this.props.question &&
                     <div>
-                        {this.props.question.author} asks:
-                        {this.props.question.optionOne.text} or {this.props.question.optionTwo.text}
+                        <h2>{this.props.question.author} asks:</h2>
+
+                        <p>{this.props.question.optionOne.text} or {this.props.question.optionTwo.text}</p>
+
+                        <p>{optionOneVotes} answered {this.props.question.optionOne.text} ( {(optionOneVotes/totalVotes * 100).toFixed(2)}%)</p>
+                        <p>{optionTwoVotes} answered {this.props.question.optionTwo.text} ( {(optionTwoVotes/totalVotes * 100).toFixed(2)}%)</p>
+
+                        {this.props.question.optionOne.votes.map((id, key) => {
+                           return (id === this.props.loggedInUser.id) ? <p key={key}>You voted for option one</p> :  null
+                        })}
+                        {this.props.question.optionTwo.votes.map((id, key) => {
+                            return (id === this.props.loggedInUser.id) ? <p key={key}>You voted for option two</p> : null
+                        })}
                     </div>
                 }
             </div>  
@@ -82,7 +91,8 @@ class Question extends Component {
     }
 
     checkAnswered() {
-        return Object.keys(this.props.loggedInUser.answers).indexOf(this.props.question.id) > -1
+        var votes = this.props.question.optionOne.votes.concat(this.props.question.optionTwo.votes)
+        return votes.indexOf(this.props.loggedInUser.id) > -1
     }
 
     render () {
@@ -92,11 +102,11 @@ class Question extends Component {
             var answered = this.checkAnswered()
             return (
                 <div className="question">
-                <Card className={styles.card}>
+                <Card>
                     <CardContent>
-                        <Typography className={styles.title} color="textSecondary" gutterBottom>
+                        {/* <Typography className={styles.title} color="textSecondary" gutterBottom> */}
                         Would you rather?
-                        </Typography>
+                        {/* </Typography> */}
                         {  answered ? this.renderAnswered() : this.renderUnanswered()
                         }
                     </CardContent>

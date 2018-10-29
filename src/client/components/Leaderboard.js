@@ -1,15 +1,10 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getUsers} from '../actions/users'
-import { withStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import classNames from 'classnames';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import {_saveQuestionAnswer} from '../../_DATA'
 
 
 
@@ -54,15 +49,15 @@ const styles = {
 
 class Leaderboard extends Component {
 
-    renderUser (user) {
+    renderUser (user, key) {
         
         var userAnswers = Object.keys(user.answers)
         let score = user.questions.length + userAnswers.length
         return(
-            <div className="question">
-                <Card className={styles.card}>
+            <div className="question" key={key}>
+                <Card>
                     <CardContent>
-                        <Typography className={styles.title} color="textSecondary" gutterBottom>
+                        {/* <Typography className={styles.title} color="textSecondary" gutterBottom> */}
                         <div>
                             <Avatar
                                 alt="Adelle Charles"
@@ -76,7 +71,7 @@ class Leaderboard extends Component {
                         <div>
                             Score: {score}
                         </div>
-                        </Typography>
+                        {/* </Typography> */}
 
 
                     </CardContent>
@@ -98,7 +93,7 @@ class Leaderboard extends Component {
         
         return (
             <div>
-                {users.sort(this.compareUser).map(user => {return this.renderUser(user)})}
+                {users.sort(this.compareUser).map((user, key) => {return this.renderUser(user, key)})}
             </div>
         )
     }

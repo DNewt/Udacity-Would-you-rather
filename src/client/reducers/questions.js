@@ -8,6 +8,8 @@ export default function reducer(
                 return {...state, questions: action.data}
             case 'GOT_QUESTION':
                 return {...state, question: action.data}
+            case 'CLEARED_QUESTION':
+                return {...state, question: null}
             default:
                 return state
         }

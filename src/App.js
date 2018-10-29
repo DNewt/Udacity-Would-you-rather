@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import SignIn from './client/components/Login'
 import Home from './client/components/Home'
@@ -22,9 +21,14 @@ class App extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (JSON.stringify(this.props.loggedInUser) !== JSON.stringify(nextProps.loggedInUser)) {
+      this.props.history.push("/")
+    }
+  }
+
   login(user) {
     this.props.login(user)
-    // this.setState({user: user}, () => {console.log(this.state.user)})
   }
 
   render() {
@@ -39,7 +43,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={Home}/>
               <Route exact path="/leaderboard" component={Leaderboard}/>
-              <Route exact path="/create-question" component={CreateQuestion} />
+              <Route exact path="/add" component={CreateQuestion} />
               <Route exact path="/questions/:id" component={Question} />
             </Switch>
           : 

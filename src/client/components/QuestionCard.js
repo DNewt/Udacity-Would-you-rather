@@ -1,12 +1,11 @@
 import React, {Component} from 'react'
-import {_saveQuestionAnswer} from '../../_DATA'
 import {connect} from 'react-redux'
 import Avatar from '@material-ui/core/Avatar';
 import classNames from 'classnames';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
 import {Link} from 'react-router-dom'
+import {clearQuestion} from '../actions/questions'
 
 const styles = {
     row: {
@@ -65,11 +64,11 @@ class QuestionCard extends Component {
     render() {
         return (
             <div className="question">
-                <Card className={styles.card}>
+                <Card>
                     <CardContent>
-                        <Typography className={styles.title} color="textSecondary" gutterBottom>
+                        {/* <Typography className={styles.title} color="textSecondary" gutterBottom> */}
                         <Link to={"/questions/"+this.props.question.id}>Would you rather?</Link>
-                        </Typography>
+                        {/* </Typography> */}
                         <div>
                             {this.renderAvatar(this.props.users[this.props.question.author].avatarURL)}
                         </div> 
@@ -90,6 +89,8 @@ const mapStateToProps = state => {
     }
 }
 
-const mapDispatchToProps = {}
+const mapDispatchToProps = {
+    clearQuestion
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(QuestionCard);

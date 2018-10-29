@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {getQuestions} from '../actions/questions'
+import {getQuestions, clearQuestion} from '../actions/questions'
 import {getUsers} from '../actions/users'
 import {connect} from 'react-redux'
 import QuestionCard from './QuestionCard';
@@ -19,6 +19,7 @@ class Home extends Component {
 
     componentDidMount() {
         this.props.getQuestions()
+        this.props.clearQuestion()
     }
 
     renderQuestions(answered) {
@@ -33,7 +34,7 @@ class Home extends Component {
         })
         return (
             questionsFiltered.map((question, index) => {
-                return <QuestionCard getQuestions={this.props.getQuestions.bind(this)} question={this.props.questions[question]} loggedInUser={this.props.loggedInUser}/>
+                return <QuestionCard key={index} getQuestions={this.props.getQuestions.bind(this)} question={this.props.questions[question]} loggedInUser={this.props.loggedInUser}/>
             })
         )
     }
@@ -62,6 +63,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
+    clearQuestion,
     getQuestions,
     getUsers
 }

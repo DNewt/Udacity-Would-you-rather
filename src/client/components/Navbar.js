@@ -5,8 +5,7 @@ import Button from '@material-ui/core/Button'
 import {Link} from 'react-router-dom'
 import {logout} from '../actions/users'
 import {connect} from 'react-redux'
-import  { Redirect } from 'react-router-dom'
-import {Switch, Route, withRouter} from 'react-router-dom'
+import { withRouter} from 'react-router-dom'
 
 class Navbar extends Component {
 
@@ -20,7 +19,7 @@ class Navbar extends Component {
             <AppBar position="static">
                 <Toolbar>
                     <Link to={"/"}><Button>Home</Button></Link>
-                    <Link to={"/create-question"}><Button>New Question</Button></Link>
+                    <Link to={"/add"}><Button>New Question</Button></Link>
                     <Link to={"/leaderboard"}><Button>Leader Board</Button></Link>
                     <p>{this.props.loggedInUser && this.props.loggedInUser.name}</p>
                     {this.props.loggedInUser && <Button onClick={() => {this.handleClick()}} >Log Out</Button>}

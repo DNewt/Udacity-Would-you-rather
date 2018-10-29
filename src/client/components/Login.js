@@ -1,23 +1,11 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import LockIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import withStyles from '@material-ui/core/styles/withStyles';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import FilledInput from '@material-ui/core/FilledInput';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
-import FormHelperText from '@material-ui/core/FormHelperText';
 
 import {getUsers} from '../actions/users'
 
@@ -42,7 +30,7 @@ class SignIn extends Component {
     return Object.keys(this.props.users).map((key, index) => {
       var user = this.props.users[key]
       return (
-        <MenuItem value={user} >{user.name}</MenuItem>
+        <MenuItem key={index} value={user} >{user.name}</MenuItem>
       )
     })
   }
@@ -82,26 +70,25 @@ class SignIn extends Component {
     return (
       <React.Fragment>
         <CssBaseline />
-        <main className={styles.layout}>
-          <Paper className={styles.paper}>
-            <Typography component="h1" variant="h5">
+        <main style={styles.layout}>
+          <Paper style={styles.paper}>
+            {/* <Typography component="h1" variant="h5"> */}
               Sign in
-            </Typography>
-            <FormControl className={styles.formControl}>
-            <Select onChange={(e) => {this.userSelected(e)}}value={this.props.user ? this.props.user : ""}
-            >
+            {/* </Typography> */}
+            <FormControl style={styles.formControl}>
+            <Select onChange={(e) => {this.userSelected(e)}} value={this.props.user ? this.props.user : ""}>
               <MenuItem value="">
                 <em>None</em>
               </MenuItem>
                 {this.props.users && this.renderUsers()}
             </Select>
           </FormControl>
-            <form className={styles.form}>
+            <form style={styles.form}>
           
               <Button
                 variant="contained"
                 color="primary"
-                className={styles.submit}
+                style={styles.submit}
                 onClick={() => {this.props.login(this.state.user)}}
               >
                 Sign in

@@ -30,3 +30,11 @@ export function createQuestion(question) {
         })
     }
 }
+
+export function clearQuestion() {
+    return dispatch => {
+        dispatch({
+            type: 'CLEARED_QUESTION'
+        })
+    }
+}
