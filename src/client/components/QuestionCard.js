@@ -48,7 +48,6 @@ const styles = {
 
 class QuestionCard extends Component {
 
-
     renderAvatar(ava){
         return (
             <div>
@@ -68,6 +67,9 @@ class QuestionCard extends Component {
                     <CardContent>
                         {/* <Typography className={styles.title} color="textSecondary" gutterBottom> */}
                         <Link to={"/questions/"+this.props.question.id}>Would you rather?</Link>
+                        <p>
+                            {this.props.question.optionOne.text} or {this.props.question.optionTwo.text}
+                        </p>
                         {/* </Typography> */}
                         <div>
                             {this.renderAvatar(this.props.users[this.props.question.author].avatarURL)}

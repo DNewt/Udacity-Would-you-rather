@@ -10,6 +10,7 @@ import {connect} from 'react-redux'
 import {login} from './client/actions/users'
 
 import {Switch, Route, withRouter} from 'react-router-dom'
+import InvalidPoll from './client/components/InvalidPoll';
 
 class App extends Component {
 
@@ -22,9 +23,9 @@ class App extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (JSON.stringify(this.props.loggedInUser) !== JSON.stringify(nextProps.loggedInUser)) {
-      this.props.history.push("/")
-    }
+    // if (JSON.stringify(this.props.loggedInUser) !== JSON.stringify(nextProps.loggedInUser)) {
+    //   this.props.history.push("/")
+    // }
   }
 
   login(user) {
@@ -45,6 +46,7 @@ class App extends Component {
               <Route exact path="/leaderboard" component={Leaderboard}/>
               <Route exact path="/add" component={CreateQuestion} />
               <Route exact path="/questions/:id" component={Question} />
+              <Route exact path="/invalidpoll" component={InvalidPoll} />
             </Switch>
           : 
             <SignIn login={this.login.bind(this)}/>  

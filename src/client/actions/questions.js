@@ -15,10 +15,17 @@ export function getQuestions(user) {
 export function getQuestion(id) {
     return dispatch => {
         _getQuestions().then(results => {
-            dispatch({
-                type: 'GOT_QUESTION',
-                data: results[id]
-            })
+            if(results[id]) {
+                dispatch({
+                    type: 'GOT_QUESTION',
+                    data: results[id]
+                })
+            } else {
+                dispatch({
+                    type: 'INVALID_QUESTION',
+                    error: "Failed to find question"
+                })
+            }
         })
     }
 }

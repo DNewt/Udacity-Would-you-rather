@@ -22,10 +22,24 @@ class Home extends Component {
         this.props.clearQuestion()
     }
 
+    sortQuestions(questions) {
+        return questions.sort(this.compareQuestion)
+    }
+
+    compareQuestion(questionA, questionB) {
+        return questionA.timestamp < questionB.timestamp
+    }
+
     renderQuestions(answered) {
 
-        var questionsFiltered = Object.keys(this.props.questions).filter(key => {
-            var question = this.props.questions[key]
+        var questions = []
+        for (var key in this.props.questions) {
+            questions.push(this.props.questions[key])
+        }
+        var questions = this.sortQuestions(questions)
+
+        var questionsFiltered = Object.keys(questions).filter(key => {
+            var question = questions[key]
             if (answered === 0) {
                 return !question.optionOne.votes.includes(this.props.loggedInUser.id) && !question.optionTwo.votes.includes(this.props.loggedInUser.id)            
             } else {
@@ -34,7 +48,7 @@ class Home extends Component {
         })
         return (
             questionsFiltered.map((question, index) => {
-                return <QuestionCard key={index} getQuestions={this.props.getQuestions.bind(this)} question={this.props.questions[question]} loggedInUser={this.props.loggedInUser}/>
+                return <QuestionCard key={index} getQuestions={this.props.getQuestions.bind(this)} question={questions[question]} loggedInUser={this.props.loggedInUser}/>
             })
         )
     }

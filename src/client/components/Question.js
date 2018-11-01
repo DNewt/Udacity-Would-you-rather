@@ -12,7 +12,15 @@ import {withRouter} from 'react-router-dom'
 
 class Question extends Component {
 
-    componentWillMount() {
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.error) {
+            this.props.history.push("/invalidpoll")
+        }
+    }
+    
+
+    componentDidMount() {
         var id = window.location.pathname.split("/").pop()
         this.props.getQuestion(id)
     }
@@ -121,7 +129,8 @@ const mapStateToProps = state => {
     return {
         question: state.questions.question,
         users: state.users.users,
-        loggedInUser: state.users.loggedInUser
+        loggedInUser: state.users.loggedInUser,
+        error: state.questions.error
     }
 }
 
