@@ -67,6 +67,10 @@ class Leaderboard extends Component {
                         </div>
                         <div>
                             Name: {user.name}
+                            <br/>
+                            Questions asked: {user.questions.length}
+                            <br/>
+                            Questions answered: {userAnswers.length}
                         </div>
                         <div>
                             Score: {score}
