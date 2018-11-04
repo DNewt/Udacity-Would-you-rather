@@ -36,7 +36,7 @@ class Home extends Component {
         for (var key in this.props.questions) {
             questions.push(this.props.questions[key])
         }
-        var questions = this.sortQuestions(questions)
+        questions = this.sortQuestions(questions)
 
         var questionsFiltered = Object.keys(questions).filter(key => {
             var question = questions[key]
